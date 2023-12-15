@@ -21,7 +21,7 @@ endif()
 
 enable_testing()
 
-file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../*.cpp")
+file(GLOB MAIN_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../*.cpp")
 file(GLOB TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../tests/*.cpp")
 file(GLOB DUMMY_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/gen/dummy_main.cpp")
 
@@ -30,6 +30,7 @@ list(APPEND ALL_SOURCES ${MAIN_SOURCES} ${TEST_SOURCES} ${DUMMY_SOURCES})
 list(REMOVE_ITEM ALL_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../main.cpp")
 
 add_executable(Tests ${ALL_SOURCES})
+target_include_directories(Tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
 target_link_libraries(Tests GTest::gtest_main)
 
 include(GoogleTest)
