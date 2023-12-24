@@ -1,0 +1,3 @@
+namespace Sensor {
+    float readTemperature();
+}
