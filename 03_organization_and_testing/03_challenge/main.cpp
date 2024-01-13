@@ -22,6 +22,6 @@ int main() {
 
     std::cout << "Result: " << out << std::endl;
 
-    return 0
+    return 0;
 
 }
