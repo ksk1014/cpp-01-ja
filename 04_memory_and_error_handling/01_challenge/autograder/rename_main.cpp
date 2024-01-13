@@ -23,7 +23,7 @@ void extract_variables(std::string& content) {
     bool in_main_function = false;
 
     std::vector<std::string> data_types = {
-        "int", "float", "double", "char", "long", "short", "bool", "std::string"
+        "int", "float", "double", "char", "long", "short", "bool", "std::string", "int*"
     };
 
     while (std::getline(stream, line)) {
@@ -51,18 +51,6 @@ void extract_variables(std::string& content) {
     }
 
     content = includes.str() + globals.str() + "\n" + main_content.str();
-}
-
-void add_return(std::string& content) {
-    auto it = std::find_if(content.rbegin(), content.rend(), [](char ch) {
-        return !std::isspace(ch);
-    });
-    content.erase(it.base(), content.end());
-    
-    if (!content.empty() && content.back() == '}') {
-        content.pop_back();
-        content += "\n    return 0;\n}";
-    }
 }
 
 void rename_main_function(const std::string& input_filepath, const std::string& output_filepath, bool empty = false) {
@@ -98,7 +86,6 @@ void rename_main_function(const std::string& input_filepath, const std::string& 
 
     if (pos != std::string::npos) {
         content.replace(pos, 9, "int dummy_main(");
-        add_return(content);
         extract_variables(content);
         output_file << content;
     } else {
