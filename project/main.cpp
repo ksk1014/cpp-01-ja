@@ -93,6 +93,7 @@ int main(){
     while (true) {
 
         vehicle temp_ego = ego;
+        int temp_fuel = fuel;
 
         // コンソールにマップと自社位置を表示
         map_display(ego, &map[0][0], rows, cols, landmarks);
@@ -136,10 +137,14 @@ int main(){
         if ( map[ego.y][ego.x] == 1 || ( map[ego.y][ego.x] == 2 && cos(ego.orientation) != 1)){
             std::cout << "Cannot go ahead" << std::endl;
             ego = temp_ego;
+            fuel = temp_fuel;
         }
         
         //自車のステータスを表示
         std::cout << "<Vehicle Status>  " << "velocity:" << ego.velocity <<  " " << "fuel:" << fuel << std::endl;
+        //for debug
+        // std::cout << "dx " << ego.velocity * static_cast<int>(cos(ego.orientation)) << std::endl;
+        // std::cout << "dy " << ego.velocity * static_cast<int>(sin(ego.orientation)) << std::endl;
 
         //ガス欠チェック
         if(fuel < 0){
