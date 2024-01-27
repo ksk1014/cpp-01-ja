@@ -20,16 +20,11 @@ struct landmark{
 
 void map_display(vehicle ego,const int* map, int rows, int cols, std::vector<landmark> landmarks){
 
-    // コンソールにマップと自社位置を表示
+    // コンソールにマップと自社位置を表示する関数
     for(int i=0 ; i < rows; i++){
  
         for(int j=0; j < cols; j++){
             int element = *(map + i * cols + j);
-            // std::cout << map << std::endl;
-            // std::cout << i << j << std::endl;
-            // std::cout << element << map[element] << std::endl;
-
-            // std::cout << map[element] ;
 
             char simbol = ' ';
 
@@ -92,9 +87,7 @@ int main(){
 
     vehicle temp_ego = ego;
 
-     // Display the map
-
-    // // コンソールにマップと自社位置を表示
+    // コンソールにマップと自社位置を表示
     map_display(ego, &map[0][0], rows, cols, landmarks);
 
     // ランドマークのインフォメーションを表示
@@ -106,24 +99,24 @@ int main(){
 
      // Handle user command and update car's position
      std::string command;
-     std::cout << "Enter a command (turn left, turn right, straight, accelerate, decelerate, stop, quit): ";
+     std::cout << "Enter a command : l(turn left), r(turn right), s(straight), a(accelerate), d(decelerate), st(stop), q(quit): ";
      std::getline(std::cin, command);
-     std::cout << "Input command << " << command << std::endl;
+     std::cout << "Your command << " << command << std::endl;
 
-        if (command == "turn left") {
+        if (command == "l") {
             ego.orientation += M_PI/2;
-        } else if (command == "turn right") {
+        } else if (command == "r") {
             ego.orientation -= M_PI/2;
-        } else if (command == "straight") {
+        } else if (command == "s") {
             ego.x += ego.velocity * cos(ego.orientation);
             ego.y -= ego.velocity * static_cast<int>(sin(ego.orientation));
-        } else if (command == "accelerate") {
+        } else if (command == "a") {
             ego.velocity += 1;
-        } else if (command == "decelerate") {
+        } else if (command == "d") {
             ego.velocity -= 1;
-        } else if (command == "stop") {
+        } else if (command == "st") {
             ego.velocity = 0;
-        } else if (command == "quit") {
+        } else if (command == "q") {
             break;
         } else {
             std::cout << "Invalid command!" << std::endl;
@@ -134,12 +127,8 @@ int main(){
         ego = temp_ego;
     }
     
-    //コマンドの応じて自車のステータスを更新
+    //自車のステータスを表示
     std::cout << "<Vehicle Status>  position:" << "(" << ego.x << "," << ego.y << ")" << " " << "velocity:" << ego.velocity << " " << "orientation:" << ego.orientation << std::endl;
-    std::cout << "sin(ego.orientation)" << sin(ego.orientation) << std::endl;
-    std::cout << "ego.velocity " << ego.velocity << std::endl;
-    std::cout << "ego.velocity * sin(ego.orientation)" << ego.velocity * sin(ego.orientation) << std::endl;
-    std::cout << "ego.y" << ego.y << std::endl;
 
     }
 
